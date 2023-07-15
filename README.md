@@ -1,4 +1,4 @@
-##QML VideoPlayer
+#Qml-VideoPlayer
 
 A simple video player designed using QML in Qt Creator. This application allows you to play, pause, and load video files, and it includes a seek bar for easy navigation.
 
