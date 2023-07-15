@@ -8,6 +8,13 @@ A simple video player designed using QML in Qt Creator. This application allows 
 3) Seek bar to navigate through the video.
 4) Supported video file formats: MP4, MOV, WMV, MKV.
 
+## Libraries Used
+This application utilizes the following libraries:
+
+1) QtQuick: Provides the fundamental QML types and functionalities for creating Qt Quick applications.
+2) QtMultimedia: Offers multimedia-related features, including video playback and control.
+3) QtQuick.Dialogs: Enables the use of common dialogs in Qt Quick applications.
+
 ## Prerequistes 
 To run this application, you need to have the following installed:
 1) Qt Creator: Download and install Qt Creator.
