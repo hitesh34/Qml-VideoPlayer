@@ -34,7 +34,6 @@ https://github.com/hitesh34/qml-videoplayer/assets/79905249/f53f7190-2540-4894-a
 4) The selected video will start playing automatically.
 5) Use the play button to pause or resume playback.
 6) Use the seek bar to navigate through the video by dragging the handle or clicking on a specific position.
-7) To change the video, click the "Select your File" button again and choose a different video file.
 
 ## Future Scope 
 1) Can improvise on the features by adding additional features like keyboard shortcuts.
