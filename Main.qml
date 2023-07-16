@@ -7,40 +7,35 @@ Window {
     id: window_id
     width: 768
     height: 432
+    color: "maroon"
+    title: "QML Video Player"
     visible: true
-    title: "Simple Video Player"
 
     Rectangle {
         id: rectangle_id
         width: parent.width
         height: parent.height
         color: "white"
-        anchors.centerIn: parent
 
         Video {
             id: video_id
             width: parent.width
             height: parent.height
             source: fileDialog_id.currentFile
-            volume: 0.5
         }
 
         Rectangle {
-            id: browseButton_id
+            id: selectfilebutton_id
             width: 150
             height: 40
-            color: "white"
-            visible: true
+            color: "maroon"
             anchors.centerIn: parent
-
-            HoverHandler {
-                acceptedDevices: PointerDevice.Mouse
-            }
 
             Text {
                 text: "Select your File"
                 font.pointSize: 12
                 anchors.centerIn: parent
+                color: "white"
             }
 
             MouseArea {
@@ -52,80 +47,22 @@ Window {
         }
 
         Rectangle {
-            id: playButton_id
-            width: 20
-            height: 20
-            color: "transparent"
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
-            anchors.topMargin: 10
-            anchors.bottomMargin: 20
-
-            Text {
-                text: "▶"
-                color: "black"
-                font.pointSize: 24
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (video_id.state === MediaPlayer.PlayingState) {
-                        video_id.pause()
-                    } else {
-                        video_id.play()
-                    }
-                }
-            }
-        }
-
-        Rectangle {
-            id: pauseButton_id
-            width: 20
-            height: 20
-            color: "transparent"
-            anchors.bottom: parent.bottom
-            anchors.left: playButton_id.right
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
-            anchors.topMargin: 10
-            anchors.bottomMargin: 20
-
-            Text {
-                text: "||"
-                color: "black"
-                font.pointSize: 18
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    video_id.pause()
-                }
-            }
-        }
-
-        Rectangle {
             id: seekLine_id
-            height: 5
+            height: 10
             color: "white"
             radius: 16
-            anchors.bottom: playButton_id.top
+            anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 10
             anchors.rightMargin: 10
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 40
 
             Rectangle {
                 height: parent.height
                 color: "red"
                 radius: 16
-                anchors.left: seekLine_id.left
+                anchors.left: parent.left
                 anchors.right: seekHandle_id.right
             }
 
@@ -169,19 +106,73 @@ Window {
             }
         }
 
+        Item {
+            width: parent.width
+            height: 40
+            anchors.bottom: parent.bottom
+
+            Rectangle {
+                id: playButton_id
+                width: 20
+                height: 20
+                color: "transparent"
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text {
+                    text: "▶"
+                    color: "maroon"
+                    font.pointSize: 24
+                    anchors.centerIn: parent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (video_id.state === MediaPlayer.PlayingState) {
+                            video_id.pause()
+                        } else {
+                            video_id.play()
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: pauseButton_id
+                width: 20
+                height: 20
+                color: "transparent"
+                anchors.left: playButton_id.right
+
+                Text {
+                    text: "||"
+                    color: "maroon"
+                    font.pointSize: 18
+                    anchors.centerIn: parent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        video_id.pause()
+                    }
+                }
+            }
+        }
+
         FileDialog {
             id: fileDialog_id
             title: "Please choose a file"
             nameFilters: ["Video Files (*.mp4 *.mov *.wmv *mkv)"]
 
             onAccepted: {
-                browseButton_id.visible = false
+                selectfilebutton_id.visible = false
                 video_id.play()
                 console.log("Loaded File: " + fileDialog_id.currentFile)
             }
 
             onRejected: {
-                console.log("Canceled")
+                console.log("Error! No file was selected to play")
             }
         }
     }
