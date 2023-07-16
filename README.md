@@ -39,5 +39,6 @@ https://github.com/hitesh34/qml-videoplayer/assets/79905249/f53f7190-2540-4894-a
 ## Future Scope 
 1) Can improvise on the features by adding additional features like keyboard shortcuts.
 2) Enhance the User Interface of the Video Player application.
-3) Include widgets and make the UI more attractive and user friendly.
+3) Include widgets and make the UI more attractive and user-friendly.
+4) Add volume-related features and time stamps.
 
