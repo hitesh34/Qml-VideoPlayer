@@ -22,7 +22,8 @@ To run this application, you need to have the following installed:
 2) Install using the Qt Maintenance Tool or Qt Online Installer.
 3) You might also need to install some modules like QtMultimedi from the Qt Maintenance Tool.
 
-##Demo
+## Demo
+
 https://github.com/hitesh34/qml-videoplayer/assets/79905249/f53f7190-2540-4894-a063-fd5f41890351
 
 
