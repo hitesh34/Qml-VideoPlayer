@@ -4,49 +4,29 @@ import QtQuick.Window
 import QtQuick.Dialogs
 
 Window {
-    id: window
-    width: 800
-    height: 600
+    id: window_id
+    width: 768
+    height: 432
     visible: true
     title: "Simple Video Player"
 
     Rectangle {
+        id: rectangle_id
         width: parent.width
         height: parent.height
         color: "white"
         anchors.centerIn: parent
 
         Video {
-            id: video
+            id: video_id
             width: parent.width
             height: parent.height
-            source: fileDialog.currentFile
+            source: fileDialog_id.currentFile
             volume: 0.5
-
-            Text {
-                id: videoPlayBtn
-                text: video.state === MediaPlayer.PlayingState ? "Pause" : "Play"
-                font.pointSize: 24
-                color: "black"
-                anchors.centerIn: parent
-            }
-        }
-
-        Text {
-            id: videoTitle
-            wrapMode: Text.Wrap
-            text: ""
-            font.family: "Arial"
-            font.pointSize: 14
-            color: "black"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.topMargin: 25
         }
 
         Rectangle {
-            id: browseBtn
+            id: browseButton_id
             width: 150
             height: 40
             color: "white"
@@ -66,13 +46,13 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    fileDialog.open()
+                    fileDialog_id.open()
                 }
             }
         }
 
         Rectangle {
-            id: playbtn
+            id: playButton_id
             width: 20
             height: 20
             color: "transparent"
@@ -93,24 +73,22 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if (video.state === MediaPlayer.PlayingState) {
-                        video.pause()
-                        videoPlayBtn.text = "Play"
+                    if (video_id.state === MediaPlayer.PlayingState) {
+                        video_id.pause()
                     } else {
-                        video.play()
-                        videoPlayBtn.text = "Pause"
+                        video_id.play()
                     }
                 }
             }
         }
 
         Rectangle {
-            id: pausebtn
+            id: pauseButton_id
             width: 20
             height: 20
             color: "transparent"
             anchors.bottom: parent.bottom
-            anchors.left: playbtn.right
+            anchors.left: playButton_id.right
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             anchors.topMargin: 10
@@ -126,18 +104,17 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    video.pause()
-                    videoPlayBtn.text = "Play"
+                    video_id.pause()
                 }
             }
         }
 
         Rectangle {
-            id: seekLine
+            id: seekLine_id
             height: 5
             color: "white"
             radius: 16
-            anchors.bottom: playbtn.top
+            anchors.bottom: playButton_id.top
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 10
@@ -146,62 +123,61 @@ Window {
 
             Rectangle {
                 height: parent.height
-                color: "deepskyblue"
+                color: "red"
                 radius: 16
-                anchors.left: seekLine.left
-                anchors.right: seekHandle.right
+                anchors.left: seekLine_id.left
+                anchors.right: seekHandle_id.right
             }
 
             MouseArea {
-                width: parent.width - seekHandle.width
+                width: parent.width - seekHandle_id.width
                 height: parent.height + 10
                 anchors.centerIn: parent
 
                 onPressed: {
-                    video.position = mouseX / (seekLine.width - seekHandle.width) * video.duration
+                    video_id.position = mouseX / (seekLine_id.width - seekHandle_id.width) * video_id.duration
                 }
             }
 
             Rectangle {
-                id: seekHandle
+                id: seekHandle_id
                 width: 20
                 height: 20
                 color: "white"
                 radius: 32
                 anchors.verticalCenter: parent.verticalCenter
-                x: ((video.position / video.duration) * (seekLine.width - seekHandle.width))
+                x: ((video_id.position / video_id.duration) * (seekLine_id.width - seekHandle_id.width))
 
                 MouseArea {
                     width: parent.width + 5
                     height: parent.height + 5
                     anchors.centerIn: parent
-                    drag.target: seekHandle
+                    drag.target: seekHandle_id
                     drag.axis: Drag.XAxis
                     drag.minimumX: 0.1
-                    drag.maximumX: seekLine.width - seekHandle.width
+                    drag.maximumX: seekLine_id.width - seekHandle_id.width
 
                     onPressed: {
-                        video.pause()
+                        video_id.pause()
                     }
 
                     onReleased: {
-                        video.position = seekHandle.x / (seekLine.width - seekHandle.width) * video.duration
-                        video.play()
+                        video_id.position = seekHandle_id.x / (seekLine_id.width - seekHandle_id.width) * video_id.duration
+                        video_id.play()
                     }
                 }
             }
         }
 
         FileDialog {
-            id: fileDialog
+            id: fileDialog_id
             title: "Please choose a file"
             nameFilters: ["Video Files (*.mp4 *.mov *.wmv *mkv)"]
 
             onAccepted: {
-                browseBtn.visible = false
-                video.play()
-                videoTitle.text = fileDialog.currentFile
-                console.log("Loaded File: " + fileDialog.currentFile)
+                browseButton_id.visible = false
+                video_id.play()
+                console.log("Loaded File: " + fileDialog_id.currentFile)
             }
 
             onRejected: {
